@@ -1,0 +1,17 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles/guipp.dir/src/Compiler/compiler.cppm.o",
+"provides": [
+{
+"logical-name": "Compiler",
+"is-interface": true
+}
+],
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}

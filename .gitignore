@@ -1,1 +1,9 @@
+build/
+compile_commands.json
+CMakeCache.txt
+CMakeFiles/
+guipp
+*.out
+.cache/
+.clangd/
 session.vim

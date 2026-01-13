@@ -1,0 +1,38 @@
+[
+{
+  "directory": "/home/balls/Documents/C++/GUI-/build",
+  "command": "/usr/bin/c++ -isystem /usr/include/SDL2 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/guipp.dir/src/Compiler/main.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/guipp.dir/src/Compiler/main.cpp.o -c /home/balls/Documents/C++/GUI-/src/Compiler/main.cpp",
+  "file": "/home/balls/Documents/C++/GUI-/src/Compiler/main.cpp",
+  "output": "/home/balls/Documents/C++/GUI-/build/CMakeFiles/guipp.dir/src/Compiler/main.cpp.o"
+},
+{
+  "directory": "/home/balls/Documents/C++/GUI-/build",
+  "command": "/usr/bin/c++ -isystem /usr/include/SDL2 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/guipp.dir/src/Compiler/lexer.cppm.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/guipp.dir/src/Compiler/lexer.cppm.o -c /home/balls/Documents/C++/GUI-/src/Compiler/lexer.cppm",
+  "file": "/home/balls/Documents/C++/GUI-/src/Compiler/lexer.cppm",
+  "output": "/home/balls/Documents/C++/GUI-/build/CMakeFiles/guipp.dir/src/Compiler/lexer.cppm.o"
+},
+{
+  "directory": "/home/balls/Documents/C++/GUI-/build",
+  "command": "/usr/bin/c++ -isystem /usr/include/SDL2 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/guipp.dir/src/Compiler/compiler.cppm.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/guipp.dir/src/Compiler/compiler.cppm.o -c /home/balls/Documents/C++/GUI-/src/Compiler/compiler.cppm",
+  "file": "/home/balls/Documents/C++/GUI-/src/Compiler/compiler.cppm",
+  "output": "/home/balls/Documents/C++/GUI-/build/CMakeFiles/guipp.dir/src/Compiler/compiler.cppm.o"
+},
+{
+  "directory": "/home/balls/Documents/C++/GUI-/build",
+  "command": "/usr/bin/c++ -isystem /usr/include/SDL2 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/guipp.dir/src/Compiler/parser.cppm.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/guipp.dir/src/Compiler/parser.cppm.o -c /home/balls/Documents/C++/GUI-/src/Compiler/parser.cppm",
+  "file": "/home/balls/Documents/C++/GUI-/src/Compiler/parser.cppm",
+  "output": "/home/balls/Documents/C++/GUI-/build/CMakeFiles/guipp.dir/src/Compiler/parser.cppm.o"
+},
+{
+  "directory": "/home/balls/Documents/C++/GUI-/build",
+  "command": "/usr/bin/c++ -isystem /usr/include/SDL2 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/guipp.dir/src/GUI_Componants/window.cppm.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/guipp.dir/src/GUI_Componants/window.cppm.o -c /home/balls/Documents/C++/GUI-/src/GUI_Componants/window.cppm",
+  "file": "/home/balls/Documents/C++/GUI-/src/GUI_Componants/window.cppm",
+  "output": "/home/balls/Documents/C++/GUI-/build/CMakeFiles/guipp.dir/src/GUI_Componants/window.cppm.o"
+},
+{
+  "directory": "/home/balls/Documents/C++/GUI-/build",
+  "command": "/usr/bin/c++ -isystem /usr/include/SDL2 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/guipp.dir/src/GUI_Componants/Component.cppm.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/guipp.dir/src/GUI_Componants/Component.cppm.o -c /home/balls/Documents/C++/GUI-/src/GUI_Componants/Component.cppm",
+  "file": "/home/balls/Documents/C++/GUI-/src/GUI_Componants/Component.cppm",
+  "output": "/home/balls/Documents/C++/GUI-/build/CMakeFiles/guipp.dir/src/GUI_Componants/Component.cppm.o"
+}
+]

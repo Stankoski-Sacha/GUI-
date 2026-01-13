@@ -1,0 +1,17 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles/guipp.dir/src/Compiler/parser.cppm.o",
+"provides": [
+{
+"logical-name": "Parser",
+"is-interface": true
+}
+],
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}

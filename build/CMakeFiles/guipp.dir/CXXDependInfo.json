@@ -1,0 +1,82 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "GNU",
+	"compiler-simulate-id" : "",
+	"config" : "",
+	"cxx-modules" : 
+	{
+		"CMakeFiles/guipp.dir/src/Compiler/compiler.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "CXX_MODULES",
+			"relative-directory" : "src/Compiler",
+			"source" : "/home/balls/Documents/C++/GUI-/src/Compiler/compiler.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/guipp.dir/src/Compiler/lexer.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "CXX_MODULES",
+			"relative-directory" : "src/Compiler",
+			"source" : "/home/balls/Documents/C++/GUI-/src/Compiler/lexer.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/guipp.dir/src/Compiler/parser.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "CXX_MODULES",
+			"relative-directory" : "src/Compiler",
+			"source" : "/home/balls/Documents/C++/GUI-/src/Compiler/parser.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/guipp.dir/src/GUI_Componants/Component.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "CXX_MODULES",
+			"relative-directory" : "src/GUI_Componants",
+			"source" : "/home/balls/Documents/C++/GUI-/src/GUI_Componants/Component.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/guipp.dir/src/GUI_Componants/window.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "CXX_MODULES",
+			"relative-directory" : "src/GUI_Componants",
+			"source" : "/home/balls/Documents/C++/GUI-/src/GUI_Componants/window.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		}
+	},
+	"database-info" : null,
+	"dir-cur-bld" : "/home/balls/Documents/C++/GUI-/build",
+	"dir-cur-src" : "/home/balls/Documents/C++/GUI-",
+	"dir-top-bld" : "/home/balls/Documents/C++/GUI-/build",
+	"dir-top-src" : "/home/balls/Documents/C++/GUI-",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : 
+	[
+		"/usr/include/SDL2"
+	],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "/home/balls/Documents/C++/GUI-/build/CMakeFiles/guipp.dir",
+	"sources" : 
+	{
+		"CMakeFiles/guipp.dir/src/Compiler/main.cpp.o" : 
+		{
+			"language" : "CXX",
+			"source" : "/home/balls/Documents/C++/GUI-/src/Compiler/main.cpp"
+		}
+	}
+}

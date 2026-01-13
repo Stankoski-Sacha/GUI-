@@ -1,0 +1,17 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles/guipp.dir/src/GUI_Componants/window.cppm.o",
+"provides": [
+{
+"logical-name": "Window",
+"is-interface": true
+}
+],
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}
