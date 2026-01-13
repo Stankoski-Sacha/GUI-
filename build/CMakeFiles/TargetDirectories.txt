@@ -1,3 +1,0 @@
-/home/balls/Documents/C++/GUI-/build/CMakeFiles/guipp.dir
-/home/balls/Documents/C++/GUI-/build/CMakeFiles/edit_cache.dir
-/home/balls/Documents/C++/GUI-/build/CMakeFiles/rebuild_cache.dir
