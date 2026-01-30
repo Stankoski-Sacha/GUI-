@@ -12,17 +12,17 @@
 
 int main(int argc, char** argv) {
   if (argc < 2) {
-    std::cerr << "GUI++ Error too few argument" << '\n';
+    std::cerr << "GUI++ : Error too few argument" << '\n';
     return 1;
   }
 
-  using namespace std;
+  using namespace std; // <- don't worry about it, it's not a bad thing
 
   optional<string> filename = nullopt;
   // TODO LATER -> optional<string> output = std::nullopt;
 
   // GUI++ main.gui -o app
-  // GUI++ main.gui -> default exec to a.out
+  // GUI++ main.gui -> default name to a.out or the file name
 
   for (auto i{1}; i <= argc - 1; i++) {
     auto searchfile = string(argv[i]).find(".gui");
@@ -33,7 +33,8 @@ int main(int argc, char** argv) {
   }
 
   if (filename == nullopt) {
-    std::cerr << "Error no source file found !" << std::endl;
+    cerr << "GUI++ : Error no source file found" << endl;
+    cerr << "Compilation Stopped" << endl;
     return 1;
   }
 

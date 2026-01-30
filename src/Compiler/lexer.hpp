@@ -13,6 +13,7 @@ enum class TokenType {
   LBRACE,
   RBRACE,
   INDENTIFIER,
+  DATABLOCK,
   DOT,
   EndOfFile,
   NUMBER,
@@ -26,8 +27,19 @@ struct Token {
   std::string token_str_literal;
 };
 
+Token toToken(const std::string t) {
+  if (t == "Window") {
+    return Token{TokenType::WINDOW, "Window"};
+  }
+  if (t == "data") {
+  }
+}
+
 class Lexer {
 public:
-  std::vector<Token> transformingFile(const std::string& file_loc) {}
+  std::vector<Token> transformingFile(const std::string& file_loc) {
+    std::fstream file(file_loc);
+    std::string word;
+  }
 };
 } // namespace Compiler
