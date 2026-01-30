@@ -6,4 +6,7 @@ guipp
 *.out
 .cache/
 .clangd/
-session.vim
+nvim.vim
+main.gui
+structure.txt
+gui++
