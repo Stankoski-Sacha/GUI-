@@ -1,3 +1,4 @@
+#include <cmath>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -19,7 +20,7 @@ int main(int argc, char** argv) {
   using namespace std; // <- don't worry about it, it's not a bad thing
 
   optional<string> filename = nullopt;
-  // TODO LATER -> optional<string> output = std::nullopt;
+  // TODO LATER -> optional<string> output = nullopt;
 
   // GUI++ main.gui -o app
   // GUI++ main.gui -> default name to a.out or the file name
@@ -38,21 +39,7 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  ifstream file(*filename);
-  string word;
-  string parsed;
+  Compiler::Lexer lex{};
 
-  while (std::getline(file, word)) {
-    parsed += word;
-  }
-
-  vector<string> parsed2{};
-  std::istringstream oss(parsed);
-  while (oss >> word) {
-    parsed2.emplace_back(word);
-  }
-
-  for (const auto& i : parsed2) {
-    std::cout << i << '\n';
-  }
+  auto tok = lex.lexer_transform_to_tokens(*filename);
 }
