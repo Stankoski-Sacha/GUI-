@@ -9,18 +9,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
-add_executable(guipp)
-
-target_sources(guipp
-  PRIVATE
-    src/Compiler/main.cpp
-  PUBLIC
-    FILE_SET CXX_MODULES FILES
-      src/Compiler/lexer.cppm
-      src/Compiler/compiler.cppm
-      src/Compiler/parser.cppm
-      src/GUI_Componants/window.cppm
-      src/GUI_Componants/Component.cppm
+add_executable(guipp
+	src/main.cpp
+       	src/Compiler/compiler.hpp
+	src/Compiler/lexer.hpp
+	src/Compiler/parser.hpp
+	src/GUI_Componants/Button.hpp	
 )
 
 # Link SDL2 libraries
