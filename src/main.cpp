@@ -24,7 +24,6 @@ int main(int argc, char** argv) {
   optional<string> filename = nullopt;
   optional<string> outputname = nullopt;
   bool output_token_exists = false;
-  // TODO LATER -> optional<string> output = nullopt;
 
   // GUI++ main.gui -o app
   // GUI++ main.gui -> default name to a.out or the file name
@@ -62,7 +61,7 @@ int main(int argc, char** argv) {
 
   Parser::Parser parser = Parser::Parser(lexer_tok);
   
-  Compiler::ComponentNode code = {Compiler::WindowNode{"title", 100,100,100,100}};
+  Compiler::ComponentNode code = {Compiler::WindowNode{"title", 100,100,300,300}};
 
   CODEGEN::Code_Gen gen{code};
 
@@ -80,18 +79,17 @@ int main(int argc, char** argv) {
 
   file_name += ".cpp";
 
+  // Make the file
   ofstream file(file_name); 
-  // Temporary name, changing it later to random name 
-  // to avoid collision if another file is the same name
-  
   file << final_SDL2_code;
   file.close();
 
-  std::string command = std::format("g++ {} -o {} -lSDL2", file_name, outputname.value_or("a.out"));
+  // Make the command
+  std::string command = std::format("g++ {} -o {} -lSDL2 -lSDL2_ttf", file_name, outputname.value_or("a.out"));
 
   system(command.c_str());
 
-  // filesystem::remove(file_name);
+  filesystem::remove(file_name);
 
   return 0;
 }
