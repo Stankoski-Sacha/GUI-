@@ -10,3 +10,13 @@ nvim.vim
 main.gui
 structure.txt
 gui++
+src/.main.cpp.swp
+src/Compiler/code_gen.hpp.pch
+src/Compiler/.code_gen.hpp.swp
+src/Compiler/.lexer.hpp.swp
+src/Compiler/lexer.hpp.pch
+src/Compiler/.parser.hpp.swp
+src/Compiler/parser.hpp.pch
+src/Compiler/.compiler.hpp.swp
+src/Compiler/compiler.hpp.pch
+src/GUI_Componants/.Button.hpp.swp
