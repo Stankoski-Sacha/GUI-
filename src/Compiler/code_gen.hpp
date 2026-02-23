@@ -11,7 +11,7 @@
 namespace CODEGEN {
 class Code_Gen {
 private:
-	Compiler::CompilerComponentNode componants;
+	Compiler::ComponentNode componants;
 		
 	std::string upBoilerPlateCode() {
 		return std::format("#include <SDL2/SDL.h>\n"
@@ -57,7 +57,7 @@ private:
 
 
 public:
-	explicit Code_Gen(Compiler::CompilerComponentNode node) : componants(node) {}
+	explicit Code_Gen(Compiler::ComponentNode node) : componants(node) {}
 
 	std::string make_final_code() {
 		std::string code = "";

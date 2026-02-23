@@ -23,6 +23,7 @@ int main(int argc, char** argv) {
 
   optional<string> filename = nullopt;
   optional<string> outputname = nullopt;
+  bool output_token_exists = false;
   // TODO LATER -> optional<string> output = nullopt;
 
   // GUI++ main.gui -o app
@@ -35,7 +36,16 @@ int main(int argc, char** argv) {
     if (searchfile != string::npos) {
       filename = argv[i];
     }
+    if (output_token != string::npos) {
+	    output_token_exists = true;
+    }
+    if (string(argv[i]).find(".gui") == string::npos && string(argv[i]) != "-o" 
+	&& outputname == nullopt && output_token_exists) {
+	    outputname = argv[i];
+    }
   }
+
+
 
 
   if (filename == nullopt) {
@@ -44,15 +54,15 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  Compiler::Lexer lex{};
+  Lexer::Lexer lex{};
   auto lexer_tok = lex.lexer_transform_to_tokens(*filename);
  // for (const auto& i : lexer_tok) {
 //	  cout << i << endl;
  // }
 
-  Compiler::Parser parser = Compiler::Parser(lexer_tok);
+  Parser::Parser parser = Parser::Parser(lexer_tok);
   
-  Compiler::CompilerComponentNode code = {Compiler::CompilerWindowNode{"title", 100,100,100,100}};
+  Compiler::ComponentNode code = {Compiler::WindowNode{"title", 100,100,100,100}};
 
   CODEGEN::Code_Gen gen{code};
 
@@ -77,7 +87,7 @@ int main(int argc, char** argv) {
   file << final_SDL2_code;
   file.close();
 
-  std::string command = std::format("g++ {} -o {} -lSDL2", file_name, "output");
+  std::string command = std::format("g++ {} -o {} -lSDL2", file_name, outputname.value_or("a.out"));
 
   system(command.c_str());
 

@@ -9,8 +9,8 @@
 
 // Types of tokens
 
-namespace Compiler {
-enum class LexerTokenType {
+namespace Lexer {
+enum class TokenType {
   // Literals
   IDENTIFIER,
   INT_LITERAL,
@@ -31,11 +31,11 @@ enum class LexerTokenType {
   WTF,
 };
 
-struct LexerToken {
-  LexerTokenType type;
+struct Token {
+  TokenType type;
   std::string lexeme;
 
-  friend std::ostream& operator<<(std::ostream& os, const LexerToken t) {
+  friend std::ostream& operator<<(std::ostream& os, const Token t) {
     return os << t.lexeme << '\n';
   }
 };
@@ -43,7 +43,7 @@ struct LexerToken {
 class Lexer {
 private:
 public:
-  std::vector<LexerToken> lexer_transform_to_tokens(const std::string& file_loc) {
+  std::vector<Token> lexer_transform_to_tokens(const std::string& file_loc) {
     std::fstream file(file_loc);
     std::string word;
     std::string parsed{};
@@ -53,7 +53,7 @@ public:
       parsed += word + ' ';
     }
 
-    std::vector<LexerToken> tokens{};
+    std::vector<Token> tokens{};
     std::size_t i = 0;
 
     while (i < parsed.length()) {
@@ -71,7 +71,7 @@ public:
         }
 
         std::string identifier = parsed.substr(start, i - start);
-        tokens.emplace_back(LexerToken{LexerTokenType::IDENTIFIER, identifier});
+        tokens.emplace_back(Token{TokenType::IDENTIFIER, identifier});
         continue;
       }
 
@@ -82,7 +82,7 @@ public:
           i++;
         }
         std::string num = parsed.substr(start, i - start);
-        tokens.emplace_back(LexerToken{LexerTokenType::INT_LITERAL, num});
+        tokens.emplace_back(Token{TokenType::INT_LITERAL, num});
         continue;
       }
 
@@ -95,49 +95,49 @@ public:
         }
 
         std::string strLiteral = parsed.substr(start, i - start);
-        tokens.emplace_back(LexerToken{LexerTokenType::STRING_LITERAL, strLiteral});
+        tokens.emplace_back(Token{TokenType::STRING_LITERAL, strLiteral});
         continue;
       }
 
       if (current == '{') {
-        tokens.emplace_back(LexerToken{LexerTokenType::LEFT_BRACE, "{"});
+        tokens.emplace_back(Token{TokenType::LEFT_BRACE, "{"});
         i++;
         continue;
       }
 
       if (current == '.') {
-        tokens.emplace_back(LexerToken{LexerTokenType::DOT, "."});
+        tokens.emplace_back(Token{TokenType::DOT, "."});
         i++;
         continue;
       }
 
       if (current == '}') {
-        tokens.emplace_back(LexerToken{LexerTokenType::RIGHT_BRACE, "}"});
+        tokens.emplace_back(Token{TokenType::RIGHT_BRACE, "}"});
         i++;
         continue;
       }
 
       if (current == ':') {
-        tokens.emplace_back(LexerToken{LexerTokenType::COLON, ":"});
+        tokens.emplace_back(Token{TokenType::COLON, ":"});
         i++;
         continue;
       }
 
       if (current == ',') {
-        tokens.emplace_back(LexerToken{LexerTokenType::COMMA, ","});
+        tokens.emplace_back(Token{TokenType::COMMA, ","});
         i++;
         continue;
       }
 
       if (current == ';') {
-        tokens.emplace_back(LexerToken{LexerTokenType::SEMICOLON, ";"});
+        tokens.emplace_back(Token{TokenType::SEMICOLON, ";"});
         i++;
         continue;
       }
 
       // End
       else {
-        tokens.emplace_back(LexerToken{LexerTokenType::WTF, "?"});
+        tokens.emplace_back(Token{TokenType::WTF, "?"});
         i++;
         continue;
       }

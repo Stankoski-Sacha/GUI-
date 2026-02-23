@@ -2,7 +2,6 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <SDL_render.h>
 #include <iostream>
 #include <optional>
 #include <string>
@@ -11,7 +10,7 @@ namespace GUICOMP {
 class Button {
 private:
   int x, y, w, h;
-  std::optional<std::string> text;
+  std::optional<std::string> text = std::nullopt;
   SDL_Color buttonColor;
   TTF_Font* textFont;
 

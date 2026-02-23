@@ -8,22 +8,22 @@
 
 namespace Compiler {
 
-struct CompilerWindowNode {
+struct WindowNode {
 	const char* title = "GUI++"; // Default title to be changed by the user 
 	int x,y,w,h; // Must indicate all of these during window creation 
 	Uint32 flag = SDL_WINDOW_SHOWN; // Default flags maybe a TODO to make so that the user can choose custom flags 
 };
 
-struct CompilerComponentNode {
-	CompilerWindowNode win;
+struct ComponentNode {
+	WindowNode win;
 };
 
 
 
 class compiler {
 private:
-	CompilerWindowNode makeWindow() {
-		CompilerWindowNode window;
+	WindowNode makeWindow() {
+		WindowNode window;
 		//TODO 
 		
 		return window;
@@ -32,8 +32,8 @@ private:
 public:
 	compiler() = default;
 
-	CompilerComponentNode makeNode() {
-		CompilerComponentNode node{};
+	ComponentNode makeNode() {
+		ComponentNode node{};
 		//TODO
 		
 

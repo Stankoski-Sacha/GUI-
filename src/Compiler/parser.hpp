@@ -12,16 +12,16 @@
 // Lexer part
 #include "lexer.hpp"
 
-namespace Compiler {
+namespace Parser {
 struct ASTNODE {
 	virtual ~ASTNODE();
 };
 
 class Parser {
 private:
-	std::vector<LexerToken> lexer_tokens;
+	std::vector<Lexer::Token> lexer_tokens;
 public:
-	explicit Parser(std::vector<LexerToken> tok) : lexer_tokens(tok) {};
+	explicit Parser(std::vector<Lexer::Token> tok) : lexer_tokens(tok) {};
 
 	
 };
