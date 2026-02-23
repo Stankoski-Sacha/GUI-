@@ -9,9 +9,9 @@
 namespace Compiler {
 
 struct CompilerWindowNode {
-	const char* title;
-	int x,y,w,h;
-	Uint32 flag = SDL_WINDOW_SHOWN;
+	const char* title = "GUI++"; // Default title to be changed by the user 
+	int x,y,w,h; // Must indicate all of these during window creation 
+	Uint32 flag = SDL_WINDOW_SHOWN; // Default flags maybe a TODO to make so that the user can choose custom flags 
 };
 
 struct CompilerComponentNode {
