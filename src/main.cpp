@@ -24,6 +24,7 @@ int main(int argc, char** argv) {
   optional<string> filename = nullopt;
   optional<string> outputname = nullopt;
   bool output_token_exists = false;
+  bool keepTempFile = false;
 
   // GUI++ main.gui -o app
   // GUI++ main.gui -> default name to a.out or the file name
@@ -31,6 +32,7 @@ int main(int argc, char** argv) {
   for (auto i{1}; i <= argc - 1; i++) {
     auto searchfile = string(argv[i]).find(".gui");
     auto output_token = string(argv[i]).find("-o");
+    auto keepTempFileIt = string(argv[i]).find("-keep-temp");
 
     if (searchfile != string::npos) {
       filename = argv[i];
@@ -38,23 +40,23 @@ int main(int argc, char** argv) {
     if (output_token != string::npos) {
 	    output_token_exists = true;
     }
+    if (keepTempFileIt != string::npos) {
+	    keepTempFile = true;
+    }
     if (string(argv[i]).find(".gui") == string::npos && string(argv[i]) != "-o" 
 	&& outputname == nullopt && output_token_exists) {
 	    outputname = argv[i];
     }
   }
 
-
-
-
-  if (filename == nullopt) {
+  if (not filename) {
     cerr << "GUI++ : Error no source file found" << endl;
     cerr << "Compilation Stopped" << endl;
     return 1;
   }
 
   Lexer::Lexer lex{};
-  auto lexer_tok = lex.lexer_transform_to_tokens(*filename);
+  auto lexer_tok = lex.transform_to_tokens(*filename);
  // for (const auto& i : lexer_tok) {
 //	  cout << i << endl;
  // }
@@ -86,10 +88,14 @@ int main(int argc, char** argv) {
 
   // Make the command
   std::string command = std::format("g++ {} -o {} -lSDL2 -lSDL2_ttf", file_name, outputname.value_or("a.out"));
-
+  
+  // Execute the command to compile 
   system(command.c_str());
 
-  filesystem::remove(file_name);
+  // Remove the temporary C++ File 
+  if (not keepTempFile) {
+  	filesystem::remove(file_name);
+  }
 
   return 0;
 }

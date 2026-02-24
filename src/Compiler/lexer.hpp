@@ -43,7 +43,7 @@ struct Token {
 class Lexer {
 private:
 public:
-  std::vector<Token> lexer_transform_to_tokens(const std::string& file_loc) {
+  std::vector<Token> transform_to_tokens(const std::string& file_loc) {
     std::fstream file(file_loc);
     std::string word;
     std::string parsed{};

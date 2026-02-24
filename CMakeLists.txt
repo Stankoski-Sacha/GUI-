@@ -14,7 +14,12 @@ add_executable(guipp
        	src/Compiler/compiler.hpp
 	src/Compiler/lexer.hpp
 	src/Compiler/parser.hpp
+	src/Compiler/code_gen.hpp
 	src/GUI_Componants/Button.hpp	
+)
+
+set_target_properties(guipp PROPERTIES
+	OUTPUT_NAME "GUI++"
 )
 
 # Link SDL2 libraries

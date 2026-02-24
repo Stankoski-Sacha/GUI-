@@ -8,14 +8,32 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
 // Lexer part
 #include "lexer.hpp"
 
 namespace Parser {
 struct ASTNODE {
-	virtual ~ASTNODE();
+	virtual ~ASTNODE() = default;
+	virtual std::string toString() const = 0;
+
 };
+
+using NodePtr =  std::unique_ptr<ASTNODE>;
+
+struct Number : ASTNODE {
+	int value;
+
+	explicit Number(int value) : value(value) {}
+
+	std::string toString() const override { 
+		return std::to_string(value);
+	}
+}; 
+
+struct Identifier : ASTNODE{};
+
 
 class Parser {
 private:
