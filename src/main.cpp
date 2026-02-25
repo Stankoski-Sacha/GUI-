@@ -13,6 +13,15 @@
 #include "Compiler/compiler.hpp"
 #include "Compiler/code_gen.hpp"
 
+void showHelp() {
+	std::cout << "GUI++ Help:\n"
+		<< "Usage : GUI++ [Source File].gui\n" 
+		<< "Optional flags :\n"
+		<< "-o [NAME] : set output executable name\n"
+		<< "-keep-temp : keep temporary C++ generated code\n";
+	std::exit(1);
+}
+
 int main(int argc, char** argv) {
   if (argc < 2) {
     std::cerr << "GUI++ : Error too few argument" << '\n';
@@ -33,6 +42,7 @@ int main(int argc, char** argv) {
     auto searchfile = string(argv[i]).find(".gui");
     auto output_token = string(argv[i]).find("-o");
     auto keepTempFileIt = string(argv[i]).find("-keep-temp");
+    auto showHelpIt = string(argv[i]).find("--help");
 
     if (searchfile != string::npos) {
       filename = argv[i];
@@ -42,6 +52,9 @@ int main(int argc, char** argv) {
     }
     if (keepTempFileIt != string::npos) {
 	    keepTempFile = true;
+    }
+    if (showHelpIt !=  string::npos) {
+	    showHelp();
     }
     if (string(argv[i]).find(".gui") == string::npos && string(argv[i]) != "-o" 
 	&& outputname == nullopt && output_token_exists) {
@@ -63,7 +76,7 @@ int main(int argc, char** argv) {
 
   Parser::Parser parser = Parser::Parser(lexer_tok);
   
-  Compiler::ComponentNode code = {Compiler::WindowNode{"title", 100,100,300,300}};
+  Compiler::ComponentNode code = {Compiler::WindowNode{100,100,300,300}};
 
   CODEGEN::Code_Gen gen{code};
 

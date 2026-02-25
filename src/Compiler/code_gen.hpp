@@ -69,6 +69,12 @@ public:
 	std::string make_final_code() {
 		std::string code = "";
 
+		// Check for any componant 
+
+		if (not componants.buttonsCreated.empty()) {
+			
+		}
+
 		code += headerCode();
 		code += mainFunctionEntry();
 		code += makeWindowCode();

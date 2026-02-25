@@ -3,14 +3,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <iostream>
-#include <optional>
 #include <string>
 
 namespace GUICOMP {
 class Button {
 private:
   int x, y, w, h;
-  std::optional<std::string> text = std::nullopt;
+  const char* text;
   SDL_Color buttonColor;
   TTF_Font* textFont;
 
@@ -20,25 +19,15 @@ private:
   SDL_Texture* cached_texture;
 
 public:
-  // Partial constructor without text or x,y
-  Button(int w, int h, SDL_Color buttonColor, TTF_Font* font)
-      : x(0), y(0), w(w), h(h), buttonColor(buttonColor), textFont(font),
-        cached_texture(nullptr) {}
-
   // Partial without text
   Button(int x, int y, int w, int h, SDL_Color buttonColor, TTF_Font* font)
-      : x(x), y(y), w(w), h(h), buttonColor(buttonColor), textFont(font),
+      : x(x), y(y), w(w), h(h), text(" "), buttonColor(buttonColor), textFont(font),
         cached_texture(nullptr) {}
 
-  // Partial constructor with only text
-  Button(int w, int h, std::string text, SDL_Color buttonColor, TTF_Font* font)
-      : x(0), y(0), w(w), h(h), text(text), buttonColor(buttonColor),
-        textFont(font), cached_texture(nullptr) {}
-
   // Full constructor
-  Button(int x, int y, int w, int h, std::string text, SDL_Color buttonColor,
+  Button(int x, int y, int w, int h, std::string t, SDL_Color buttonColor,
          TTF_Font* font)
-      : x(x), y(y), w(w), h(h), text(text), buttonColor(buttonColor),
+      : x(x), y(y), w(w), h(h), text(t.c_str()), buttonColor(buttonColor),
         textFont(font), cached_texture(nullptr) {}
 
   // Destructor
@@ -50,6 +39,14 @@ public:
     if (cached_texture) {
       SDL_DestroyTexture(cached_texture);
     }
+  }
+
+  void createTexture(SDL_Renderer* ren) {
+
+  }
+
+  void render(SDL_Renderer* ren) {
+
   }
 };
 } // namespace GUICOMP
