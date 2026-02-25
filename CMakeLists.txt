@@ -9,13 +9,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
+
 add_executable(guipp
 	src/main.cpp
        	src/Compiler/compiler.hpp
 	src/Compiler/lexer.hpp
 	src/Compiler/parser.hpp
 	src/Compiler/code_gen.hpp
-	src/GUI_Componants/Button.hpp	
 )
 
 set_target_properties(guipp PROPERTIES
@@ -28,3 +28,6 @@ target_link_libraries(guipp
     SDL2::SDL2
     SDL2_ttf::SDL2_ttf
 )
+
+target_compile_definitions(guipp PRIVATE PROJECT_SOURCE_DIR="${CMAKE_SOURCE_DIR}")
+

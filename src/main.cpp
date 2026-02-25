@@ -76,7 +76,10 @@ int main(int argc, char** argv) {
 
   Parser::Parser parser = Parser::Parser(lexer_tok);
   
-  Compiler::ComponentNode code = {Compiler::WindowNode{100,100,300,300}};
+  Compiler::ComponentNode code = {Compiler::WindowNode{100,100,300,300},
+	vector<Compiler::Button>{Compiler::Button{"text", 100,100,100,100}}
+  };
+  
 
   CODEGEN::Code_Gen gen{code};
 
@@ -103,7 +106,7 @@ int main(int argc, char** argv) {
   std::string command = std::format("g++ {} -o {} -lSDL2 -lSDL2_ttf", file_name, outputname.value_or("a.out"));
   
   // Execute the command to compile 
-  system(command.c_str());
+  // system(command.c_str());
 
   // Remove the temporary C++ File 
   if (not keepTempFile) {

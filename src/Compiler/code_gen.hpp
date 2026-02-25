@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <format>
+#include <fstream>
 
 // Other import 
 #include "compiler.hpp"
@@ -17,6 +18,7 @@ private:
 	std::string headerCode() {
 		return std::format("#include <SDL2/SDL.h>\n"
 				"#include <SDL2/SDL_ttf.h>\n"
+				"#include <string>\n"
 		);
 					
 	};
@@ -62,20 +64,34 @@ private:
 		);
 	}
 
+	// Add the class button to the code before main 
+	std::string addButtonCode() {
+		std::ifstream file(std::string(PROJECT_SOURCE_DIR) + "/src/GUI_Componants/Button.hpp");
+		
 
+		std::string button_code;
+		std::string word;
+
+		while (std::getline(file, word)) {
+			button_code += word + '\n';
+		}
+
+		return button_code;
+	}
+
+		
 public:
 	explicit Code_Gen(Compiler::ComponentNode node) : componants(node) {}
 
 	std::string make_final_code() {
 		std::string code = "";
+		code += headerCode();
 
 		// Check for any componant 
-
 		if (not componants.buttonsCreated.empty()) {
-			
+			code += addButtonCode();
 		}
 
-		code += headerCode();
 		code += mainFunctionEntry();
 		code += makeWindowCode();
 		code += renderLoopCodeStart();
