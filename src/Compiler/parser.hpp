@@ -1,8 +1,7 @@
 #pragma once
 
 /*
- * Assume everything that doesn't have a optional is mandatory to include
- * in code.
+ * The hard part :( 
  */
 
 #include <iostream>
@@ -32,7 +31,27 @@ struct Number : ASTNODE {
 	}
 }; 
 
-struct Identifier : ASTNODE{};
+struct String : ASTNODE {
+	const char* val;
+
+	explicit String(const char* v) : val(v) {}
+
+	std::string toString() const override {
+		return std::string(val);
+	}
+};
+
+struct Identifier : ASTNODE{
+	const char dotIdentifier;
+	const char* idenName;
+
+	explicit Identifier(char dot, const char* iden) : dotIdentifier(dot), idenName(iden) {}
+	
+	std::string toString() const override {
+		return dotIdentifier + idenName;	
+	}
+};
+
 
 
 class Parser {

@@ -54,6 +54,7 @@ struct TextBox {
 };
 
 
+// All componants inside of a struct to make it easier to move around
 struct ComponentNode {
 	WindowNode win;
 	std::vector<Button> buttonsCreated;

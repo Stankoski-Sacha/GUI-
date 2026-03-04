@@ -15,6 +15,7 @@ enum class TokenType {
   IDENTIFIER,
   INT_LITERAL,
   STRING_LITERAL,
+  BOOL_LITERAL,
 
   // Delimeters
   LEFT_BRACE,
@@ -31,12 +32,32 @@ enum class TokenType {
   WTF,
 };
 
+// Debugging purpose 	
+constexpr std::string_view TokenToString(const TokenType& t) {
+	switch (t) {
+		case TokenType::IDENTIFIER: return "Identifier -> ";
+		case TokenType::INT_LITERAL: return "Integer -> ";
+		case TokenType::STRING_LITERAL: return "String -> ";
+		case TokenType::LEFT_BRACE: return "Left Curly Brace -> ";
+		case TokenType::RIGHT_BRACE: return "Right Curly Brace -> ";
+		case TokenType::COLON: return "Colon -> ";
+		case TokenType::SEMICOLON: return "Semicolon -> ";
+		case TokenType::COMMA: return "Comma -> ";
+		case TokenType::DOT: return "Dot -> ";
+		case TokenType::EndOfFile: return "EOF -> ";
+		case TokenType::WTF: return "Huh?";
+		case TokenType::BOOL_LITERAL: return "Bool -> ";
+		default: return "Error somewhere dawg";
+	}
+}
+
 struct Token {
   TokenType type;
   std::string lexeme;
+  int line;
 
   friend std::ostream& operator<<(std::ostream& os, const Token t) {
-    return os << t.lexeme << '\n';
+    return os << "Line " << t.line << ' ' << TokenToString(t.type) << t.lexeme << '\n';
   }
 };
 
@@ -47,10 +68,11 @@ public:
     std::fstream file(file_loc);
     std::string word;
     std::string parsed{};
+    int current_line = 1;
 
     // Get the text from the file into a std::string
     while (std::getline(file, word)) {
-      parsed += word + ' ';
+      parsed += word + '\n';
     }
 
     std::vector<Token> tokens{};
@@ -58,6 +80,12 @@ public:
 
     while (i < parsed.length()) {
       char current = parsed[i];
+      	
+      if (current == '\n') {
+	      current_line++;
+	      i++;
+	      continue;
+      }
 
       if (std::isspace(current)) {
         i++;
@@ -71,7 +99,12 @@ public:
         }
 
         std::string identifier = parsed.substr(start, i - start);
-        tokens.emplace_back(Token{TokenType::IDENTIFIER, identifier});
+
+	if (identifier == "true" or identifier == "false") {
+		tokens.emplace_back(Token{TokenType::BOOL_LITERAL, identifier, current_line});
+	} else {
+		tokens.emplace_back(Token{TokenType::IDENTIFIER, identifier, current_line});
+	}
         continue;
       }
 
@@ -82,7 +115,7 @@ public:
           i++;
         }
         std::string num = parsed.substr(start, i - start);
-        tokens.emplace_back(Token{TokenType::INT_LITERAL, num});
+        tokens.emplace_back(Token{TokenType::INT_LITERAL, num, current_line});
         continue;
       }
 
@@ -95,49 +128,51 @@ public:
         }
 
         std::string strLiteral = parsed.substr(start, i - start);
-        tokens.emplace_back(Token{TokenType::STRING_LITERAL, strLiteral});
+        tokens.emplace_back(Token{TokenType::STRING_LITERAL, strLiteral, current_line});
+	i++; // The reason why for this i++ is to take the text and skip the second " otherwise the lexer takes everything after as a string
         continue;
       }
 
       if (current == '{') {
-        tokens.emplace_back(Token{TokenType::LEFT_BRACE, "{"});
+        tokens.emplace_back(Token{TokenType::LEFT_BRACE, "{", current_line});
         i++;
         continue;
       }
 
       if (current == '.') {
-        tokens.emplace_back(Token{TokenType::DOT, "."});
+        tokens.emplace_back(Token{TokenType::DOT, ".", current_line});
         i++;
         continue;
       }
 
       if (current == '}') {
-        tokens.emplace_back(Token{TokenType::RIGHT_BRACE, "}"});
+        tokens.emplace_back(Token{TokenType::RIGHT_BRACE, "}", current_line});
         i++;
         continue;
       }
 
       if (current == ':') {
-        tokens.emplace_back(Token{TokenType::COLON, ":"});
+        tokens.emplace_back(Token{TokenType::COLON, ":", current_line});
         i++;
         continue;
       }
 
       if (current == ',') {
-        tokens.emplace_back(Token{TokenType::COMMA, ","});
+        tokens.emplace_back(Token{TokenType::COMMA, ",", current_line});
         i++;
         continue;
       }
 
       if (current == ';') {
-        tokens.emplace_back(Token{TokenType::SEMICOLON, ";"});
+        tokens.emplace_back(Token{TokenType::SEMICOLON, ";", current_line});
         i++;
         continue;
       }
 
+
       // End
       else {
-        tokens.emplace_back(Token{TokenType::WTF, "?"});
+        tokens.emplace_back(Token{TokenType::WTF, "?", current_line});
         i++;
         continue;
       }

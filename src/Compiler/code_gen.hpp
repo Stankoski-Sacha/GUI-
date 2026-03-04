@@ -28,38 +28,38 @@ private:
 	}
 
 	std::string makeWindowCode() {
-		return std::format("SDL_Window* win = SDL_CreateWindow(\"{}\", {}, {}, {}, {}, {});\n" 
-				"SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);\n"
-				"bool running = true;\nSDL_Event e;\n",
+		return std::format("	SDL_Window* win = SDL_CreateWindow(\"{}\", {}, {}, {}, {}, {});\n" 
+				"	SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);\n"
+				"	bool running = true;\n        SDL_Event e;\n",
 				componants.win.title, componants.win.x, componants.win.y, componants.win.w, 
 				componants.win.h, componants.win.flag
 		);
 	}
 
 	std::string renderLoopCodeStart() {
-		return std::format("while (running) {{ \n"
-				" while (SDL_PollEvent(&e)) {{ \n"
-				"if (e.type == SDL_QUIT) {{ \n"
-				"running = false;\n"
-				"}}\n"
-				"}}\n"
-				"SDL_SetRenderDrawColor(ren, 255,255,255,255);\n"
-				"SDL_RenderClear(ren);\n"
+		return std::format("	while (running) {{ \n"
+				"		while (SDL_PollEvent(&e)) {{ \n"
+				"			if (e.type == SDL_QUIT) {{ \n"
+				"				running = false;\n"
+				"			}}\n"
+				"		}}\n"
+				"		SDL_SetRenderDrawColor(ren, 255,255,255,255);\n"
+				"		SDL_RenderClear(ren);\n"
 		);
 	}
 
 	std::string renderLoopCodeEnd() {
-		return std::format("SDL_RenderPresent(ren);\n"
-				"SDL_Delay(16);\n"
-				"}}\n"
+		return std::format("		SDL_RenderPresent(ren);\n"
+				"		SDL_Delay(16);\n"
+				"	}}\n"
 		);
 	}
 
 	std::string cleanupCode() {
-		return std::format("SDL_DestroyWindow(win);\n"
-				"SDL_DestroyRenderer(ren);\n"
-				"SDL_Quit();\n"
-				"return 0;\n"
+		return std::format("	SDL_DestroyWindow(win);\n"
+				"	SDL_DestroyRenderer(ren);\n"
+				"	SDL_Quit();\n"
+				"	return 0;\n"
 				"}}\n"
 		);
 	}
@@ -78,6 +78,18 @@ private:
 
 		return button_code;
 	}
+	
+	std::string addTextBoxCode() {
+		std::ifstream file(std::string(PROJECT_SOURCE_DIR) + "/src/GUI_Componants/TextBox.hpp");
+
+		std::string textboxCode, word;
+
+		while (std::getline(file, word)) {
+			textboxCode += word + '\n';
+		}
+
+		return textboxCode;
+	}
 
 		
 public:
@@ -92,6 +104,11 @@ public:
 			code += addButtonCode();
 		}
 
+		if (not componants.TextBoxCreated.empty()) {
+			code += addTextBoxCode();
+		}
+
+		// Start of the code 
 		code += mainFunctionEntry();
 		code += makeWindowCode();
 		code += renderLoopCodeStart();

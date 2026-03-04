@@ -70,14 +70,17 @@ int main(int argc, char** argv) {
 
   Lexer::Lexer lex{};
   auto lexer_tok = lex.transform_to_tokens(*filename);
- // for (const auto& i : lexer_tok) {
-//	  cout << i << endl;
- // }
+  for (const auto& i : lexer_tok) {
+  	cout << i << endl;
+  }
+
+  std::exit(0); // for debug the lexer 
 
   Parser::Parser parser = Parser::Parser(lexer_tok);
   
   Compiler::ComponentNode code = {Compiler::WindowNode{100,100,300,300},
-	vector<Compiler::Button>{Compiler::Button{"text", 100,100,100,100}}
+	vector<Compiler::Button>{Compiler::Button{"text", 100,100,100,100}},
+	vector<Compiler::TextBox>{Compiler::TextBox{"Text", 200,200,200,200,false}}
   };
   
 
@@ -103,10 +106,10 @@ int main(int argc, char** argv) {
   file.close();
 
   // Make the command
-  std::string command = std::format("g++ {} -o {} -lSDL2 -lSDL2_ttf", file_name, outputname.value_or("a.out"));
+  string command = format("g++ {} -o {} -lSDL2 -lSDL2_ttf", file_name, outputname.value_or("a.out"));
   
   // Execute the command to compile 
-  // system(command.c_str());
+  system(command.c_str());
 
   // Remove the temporary C++ File 
   if (not keepTempFile) {

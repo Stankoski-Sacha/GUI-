@@ -1,12 +1,8 @@
-#pragma once 
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <SDL_render.h>
 #include <optional>
 #include <iostream>
 
-namespace GUICOMP {
 class TextBox {
 private:
 	std::string text;
@@ -48,5 +44,3 @@ public:
 	}
 
 };
-
-}
