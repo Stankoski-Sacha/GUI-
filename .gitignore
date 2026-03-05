@@ -20,3 +20,4 @@ src/Compiler/parser.hpp.pch
 src/Compiler/.compiler.hpp.swp
 src/Compiler/compiler.hpp.pch
 src/GUI_Componants/.Button.hpp.swp
+src/GUI_Componants/.TextBox.hpp.swp
