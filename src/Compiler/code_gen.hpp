@@ -127,7 +127,7 @@ private:
 	}
 
 	std::string openFontCode() {
-		return "TTF_Font* font = TTF_OpenFont(\"LiberationSans-Regular.ttf\", 15);\n";
+		return "TTF_Font* font = TTF_OpenFont(\"LiberationSans-Regular.ttf\", 20);\n";
 	}
 
 
