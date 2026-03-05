@@ -31,7 +31,7 @@ private:
 		return std::format("	SDL_Window* win = SDL_CreateWindow(\"{}\", {}, {}, {}, {}, {});\n" 
 				"	SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);\n"
 				"	bool running = true;\n        SDL_Event e;\n",
-				componants.win.title, componants.win.x, componants.win.y, componants.win.w, 
+				componants.win.title.c_str(), componants.win.x, componants.win.y, componants.win.w, 
 				componants.win.h, componants.win.flag
 		);
 	}

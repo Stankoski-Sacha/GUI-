@@ -70,21 +70,19 @@ int main(int argc, char** argv) {
 
   Lexer::Lexer lex{};
   auto lexer_tok = lex.transform_to_tokens(*filename);
-  for (const auto& i : lexer_tok) {
-  	cout << i << endl;
-  }
+  //for (const auto& i : lexer_tok) {
+  //	cout << i << endl;
+  //}
 
-  std::exit(0); // for debug the lexer 
+  // std::exit(0); // for debug the lexer 
 
-  Parser::Parser parser = Parser::Parser(lexer_tok);
+  // Parser::Parser parser = Parser::Parser(lexer_tok);
+
+  Compiler::compiler comp{lexer_tok};
   
-  Compiler::ComponentNode code = {Compiler::WindowNode{100,100,300,300},
-	vector<Compiler::Button>{Compiler::Button{"text", 100,100,100,100}},
-	vector<Compiler::TextBox>{Compiler::TextBox{"Text", 200,200,200,200,false}}
-  };
-  
+  auto comp_tok = comp.makeNode();
 
-  CODEGEN::Code_Gen gen{code};
+  CODEGEN::Code_Gen gen{comp_tok};
 
   std::string final_SDL2_code = gen.make_final_code();
 
