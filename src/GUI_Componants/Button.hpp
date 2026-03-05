@@ -6,10 +6,10 @@ class Button {
 private:
   int x, y, w, h;
   std::string text;
-  SDL_Color buttonColor = {255,255,255,255};
+  SDL_Color buttonColor = {100,100,100,255};
   TTF_Font* textFont;
 
-  SDL_Color textColor = {255, 255, 255, 255};
+  SDL_Color textColor = {0, 0, 0, 255};
 
   // Cached texture
   SDL_Texture* cached_texture;
@@ -25,13 +25,9 @@ public:
 
   // Destructor
   ~Button() {
-    if (textFont) {
-      TTF_CloseFont(textFont);
-    }
-
-    if (cached_texture) {
-      SDL_DestroyTexture(cached_texture);
-    }
+   	if (cached_texture) {
+	       SDL_DestroyTexture(cached_texture);
+	}	       
   }
 
   void createTexture(SDL_Renderer* ren) {

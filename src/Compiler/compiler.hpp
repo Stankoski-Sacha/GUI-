@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <iterator>
 #include <string>
 #include <vector>
 #include <optional>
@@ -40,7 +41,7 @@ struct Button {
 };
 
 struct TextBox {
-	const char* defaultText = " "; // Default text to a blank space ' '
+	std::string defaultText = " "; // Default text to a blank space ' '
 	int x, y, w, h; // Mandatory to put 
 	bool isEditable; // Also mandatory 
 	
@@ -126,10 +127,100 @@ private:
 	}
 
 	TextBox makeTextBox(const std::vector<Lexer::Token>& toks) {
+		using namespace Lexer;
+		TextBox node;
 
+		std::pair<int, int> dimensionsPair;
+		std::pair<int, int> positionPair;
+		std::string title;
+		bool isEdit;
+		for (auto i{0}; i < toks.size(); i++) {
+			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
+				dimensionsPair = returnVals(std::vector<Token>{
+					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+				do {
+				       i++;
+				} while (toks[i].type != TokenType::SEMICOLON);	       
+			}
+			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
+				positionPair = returnVals(std::vector<Token>{
+					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+				do {
+				       i++;
+				} while (toks[i].type != TokenType::SEMICOLON);	       
+			}
+			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "text") {
+				do {
+					i++;
+				} while (toks[i].type != TokenType::STRING_LITERAL);
+
+				title = toks[i].lexeme;
+
+				do {
+					i++;
+				} while (toks[i].type != TokenType::SEMICOLON);	
+			}
+			else if (toks[i].type == TokenType::BOOL_LITERAL) {
+				isEdit = (toks[i].lexeme == "true") ? 1 : 0;
+			}
+		}
+
+		node.w = dimensionsPair.first;
+		node.h = dimensionsPair.second;
+		node.x = positionPair.first;
+		node.y = positionPair.second;
+		node.defaultText = title;
+		node.isEditable = isEdit;
+
+		return node;
 	}
 
 	Button makeButton(const std::vector<Lexer::Token>& toks) {
+		using namespace Lexer;
+		Button node;
+
+		std::pair<int, int> dimensionsPair;
+		std::pair<int, int> positionPair;
+		std::string title;
+		for (auto i{0}; i < toks.size(); i++) {
+			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
+				dimensionsPair = returnVals(std::vector<Token>{
+					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+				do {
+				       i++;
+				} while (toks[i].type != TokenType::SEMICOLON);	       
+			}
+			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
+				positionPair = returnVals(std::vector<Token>{
+					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+				do {
+				       i++;
+				} while (toks[i].type != TokenType::SEMICOLON);	       
+			}
+			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "text") {
+				do {
+					i++;
+				} while (toks[i].type != TokenType::STRING_LITERAL);
+
+				title = toks[i].lexeme;
+
+				do {
+					i++;
+				} while (toks[i].type != TokenType::SEMICOLON);	
+			}
+		}
+
+		node.w = dimensionsPair.first;
+		node.h = dimensionsPair.second;
+		node.x = positionPair.first;
+		node.y = positionPair.second;
+		node.buttonText = title;
+
+		return node;
 
 	}
 
@@ -154,8 +245,14 @@ public:
 					context = Context::TEXTBOX;
 				}
 				if (toks[i].lexeme == "data") {
+					auto brace_begin = std::find_if(
+						toks.begin() + i, toks.end(),
+						[](const Lexer::Token& token) {
+						return token.type == Lexer::TokenType::LEFT_BRACE;
+					});
+
 					auto data_end = std::find_if(
-						toks.begin(), toks.end(),
+						brace_begin, toks.end(),
 						[](const Lexer::Token& token) {
 							return token.type == Lexer::TokenType::RIGHT_BRACE;
 					});
@@ -173,6 +270,7 @@ public:
 							node.TextBoxCreated.emplace_back(makeTextBox(subvec));
 							break;
 					}
+					i = std::distance(toks.begin() + 1, data_end);
 				}
 			default: continue;
 			

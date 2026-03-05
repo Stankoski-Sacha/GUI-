@@ -29,11 +29,7 @@ public:
 		if (cached_texture) {
 			SDL_DestroyTexture(cached_texture);
 		}
-
-		if (font) {
-			TTF_CloseFont(font);
-			}
-		}
+	}
 
 	void createTexture(SDL_Renderer* ren) {
 

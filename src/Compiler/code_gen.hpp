@@ -1,5 +1,6 @@
 #pragma once 
 
+#include <cwchar>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -25,6 +26,12 @@ private:
 
 	std::string mainFunctionEntry() {
 		return std::format("int main(int argc, char** argv) {{\n");
+	}
+
+	std::string initCode() {
+		return std::format("	SDL_Init(SDL_INIT_EVERYTHING);\n"
+				   "	TTF_Init();\n"
+		);
 	}
 
 	std::string makeWindowCode() {
@@ -58,7 +65,9 @@ private:
 	std::string cleanupCode() {
 		return std::format("	SDL_DestroyWindow(win);\n"
 				"	SDL_DestroyRenderer(ren);\n"
+				"	TTF_CloseFont(font);\n"
 				"	SDL_Quit();\n"
+				"	TTF_Quit();\n"
 				"	return 0;\n"
 				"}}\n"
 		);
@@ -91,30 +100,77 @@ private:
 		return textboxCode;
 	}
 
-		
+	std::string makeButtonInitCode(int buttonID) {
+		return std::format("Button b{} = Button({}, {}, {}, {}, \"{}\", font);\n",
+				buttonID,
+				componants.buttonsCreated[buttonID].x ,
+				componants.buttonsCreated[buttonID].y ,
+				componants.buttonsCreated[buttonID].w ,
+				componants.buttonsCreated[buttonID].h ,
+				componants.buttonsCreated[buttonID].buttonText
+		);
+	}
+
+	std::string makeButtonRenderCode(int buttonID) {
+		return std::format("b{}.render(ren);\n", buttonID);
+	}
+
+	std::string embedFontCode() {
+	    std::ifstream src(std::string(PROJECT_SOURCE_DIR) + "/font/LiberationSans-Regular.ttf", std::ios::binary);
+	    if (!src.is_open()) {
+		std::cerr << "Could not find arial.ttf\n";
+		return "";
+	    }
+	    std::ofstream dst("arial.ttf", std::ios::binary);
+	    dst << src.rdbuf();
+	    return "";
+	}
+
+	std::string openFontCode() {
+		return "TTF_Font* font = TTF_OpenFont(\"LiberationSans-Regular.ttf\", 15);\n";
+	}
+
+
 public:
 	explicit Code_Gen(Compiler::ComponentNode node) : componants(node) {}
 
 	std::string make_final_code() {
 		std::string code = "";
 		code += headerCode();
+		int buttons = -1, textboxes = -1;
 
 		// Check for any componant 
 		if (not componants.buttonsCreated.empty()) {
 			code += addButtonCode();
+			buttons = componants.buttonsCreated.size() - 1;
 		}
 
 		if (not componants.TextBoxCreated.empty()) {
 			code += addTextBoxCode();
+			textboxes = componants.TextBoxCreated.size() - 1;
 		}
 
 		// Start of the code 
 		code += mainFunctionEntry();
+		code += initCode();
 		code += makeWindowCode();
+		code += openFontCode();
+		
+		// GUI Comp init here 
+		int bTemp = buttons;
+		while (bTemp >= 0) {
+			code += makeButtonInitCode(bTemp);
+			bTemp--;
+		}
+
 		code += renderLoopCodeStart();
 
 		// Add code for render button etc not now 
-
+		bTemp = buttons;
+		while (bTemp >= 0) {
+			code += makeButtonRenderCode(bTemp);
+			bTemp--;
+		}
 		code += renderLoopCodeEnd();
 
 		// End of the file 
