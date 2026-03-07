@@ -16,7 +16,6 @@ namespace Parser {
 struct ASTNODE {
 	virtual ~ASTNODE() = default;
 	virtual std::string toString() const = 0;
-
 };
 
 using NodePtr =  std::unique_ptr<ASTNODE>;
