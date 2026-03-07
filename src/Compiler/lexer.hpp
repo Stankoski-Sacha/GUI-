@@ -8,7 +8,6 @@
 #include <vector>
 
 // Types of tokens
-
 namespace Lexer {
 enum class TokenType {
   // Literals

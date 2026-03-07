@@ -53,4 +53,3 @@ public:
 	SDL_RenderCopy(ren, cached_texture, nullptr, &textureRect);
   }
 };
-

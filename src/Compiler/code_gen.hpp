@@ -175,7 +175,6 @@ private:
 
 	}
 
-
 public:
 	explicit Code_Gen(Compiler::ComponentNode node) : componants(node) {}
 

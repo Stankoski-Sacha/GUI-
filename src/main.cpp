@@ -22,6 +22,7 @@ void showHelp() {
 	std::exit(1);
 }
 
+
 int main(int argc, char** argv) {
   if (argc < 2) {
     std::cerr << "GUI++ : Error too few argument" << '\n';
