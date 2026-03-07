@@ -12,7 +12,6 @@
 #include <utility>
 #include <cctype>
 
-
 // Includes 
 #include "lexer.hpp"
 #include "parser.hpp"
@@ -22,7 +21,8 @@ namespace Compiler {
 enum class Context {
 	WINDOW,
 	TEXTBOX,
-	BUTTON
+	BUTTON,
+	CHECKBOX
 };
 
 struct WindowNode {
@@ -48,12 +48,18 @@ struct TextBox {
 	TextBox() = default;
 };
 
+struct CheckBox {
+	int x, y, w, h;
+	CheckBox() = default;
+};
+
 
 // All componants inside of a struct to make it easier to move around
 struct ComponentNode {
 	WindowNode win;
 	std::vector<Button> buttonsCreated;
 	std::vector<TextBox> TextBoxCreated;
+	std::vector<CheckBox> CheckBoxCreated;
 };
 
 
@@ -224,6 +230,41 @@ private:
 
 	}
 
+	CheckBox makeCheckBox(const std::vector<Lexer::Token>& toks) {
+		using namespace Lexer;
+		CheckBox node;
+
+		std::pair<int, int> dimensionsPair;
+		std::pair<int, int> positionPair;
+		for (auto i{0}; i < toks.size(); i++) {
+			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
+				dimensionsPair = returnVals(std::vector<Token>{
+					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+				do {
+				       i++;
+				} while (toks[i].type != TokenType::SEMICOLON);	       
+			}
+			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
+				positionPair = returnVals(std::vector<Token>{
+					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+				do {
+				       i++;
+				} while (toks[i].type != TokenType::SEMICOLON);	       
+			}
+		}
+
+		node.w = dimensionsPair.first;
+		node.h = dimensionsPair.second;
+		node.x = positionPair.first;
+		node.y = positionPair.second;
+
+		return node;
+
+	}
+
+
 
 public:
 	explicit compiler(std::vector<Lexer::Token> tok) : toks(tok) {};
@@ -243,6 +284,9 @@ public:
 				}
 				if (toks[i].lexeme == "TextBox") {
 					context = Context::TEXTBOX;
+				}
+				if (toks[i].lexeme == "CheckBox") {
+					context = Context::CHECKBOX;
 				}
 				if (toks[i].lexeme == "data") {
 					auto brace_begin = std::find_if(
@@ -269,6 +313,10 @@ public:
 						case Context::TEXTBOX:
 							node.TextBoxCreated.emplace_back(makeTextBox(subvec));
 							break;
+						case Context::CHECKBOX:
+							node.CheckBoxCreated.emplace_back(makeCheckBox(subvec));
+							break;
+
 					}
 					i = std::distance(toks.begin() + 1, data_end);
 				}
