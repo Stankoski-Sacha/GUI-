@@ -43,8 +43,8 @@ public:
   void render(SDL_Renderer* ren) {
 	if (not cached_texture) { createTexture(ren); }
 
-	if (textW > w) w = textW;
-	if (textH > h) h = textH;
+	if (textW > w) w = textW, h = textH;
+	if (textH > h) h = textH, w = textW;
 	
 	SDL_Rect colorRect = {x, y, w, h};
 	SDL_Rect textureRect = {x, y, textW, textH};
