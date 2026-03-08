@@ -95,7 +95,7 @@ private:
 		for (auto i{0}; i < toks.size(); i++) {
 			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
 				dimensionsPair = returnVals(std::vector<Token>{
-					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
 						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
 				do {
 				       i++;
@@ -103,7 +103,7 @@ private:
 			}
 			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
 				positionPair = returnVals(std::vector<Token>{
-					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
 						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
 				do {
 				       i++;
@@ -142,7 +142,7 @@ private:
 		for (auto i{0}; i < toks.size(); i++) {
 			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
 				dimensionsPair = returnVals(std::vector<Token>{
-					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
 						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
 				do {
 				       i++;
@@ -150,7 +150,7 @@ private:
 			}
 			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
 				positionPair = returnVals(std::vector<Token>{
-					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
 						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
 				do {
 				       i++;
@@ -192,7 +192,7 @@ private:
 		for (auto i{0}; i < toks.size(); i++) {
 			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
 				dimensionsPair = returnVals(std::vector<Token>{
-					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
 						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
 				do {
 				       i++;
@@ -200,7 +200,7 @@ private:
 			}
 			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
 				positionPair = returnVals(std::vector<Token>{
-					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
 						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
 				do {
 				       i++;
@@ -238,7 +238,7 @@ private:
 		for (auto i{0}; i < toks.size(); i++) {
 			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
 				dimensionsPair = returnVals(std::vector<Token>{
-					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
 						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
 				do {
 				       i++;
@@ -246,7 +246,7 @@ private:
 			}
 			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
 				positionPair = returnVals(std::vector<Token>{
-					toks.begin(), std::find_if(toks.begin(), toks.end(), 
+					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
 						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
 				do {
 				       i++;

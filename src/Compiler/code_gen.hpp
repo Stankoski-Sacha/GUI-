@@ -29,7 +29,7 @@ private:
 	}
 
 	std::string initCode() {
-		return std::format("	SDL_Init(SDL_INIT_EVERYTHING);\n"
+		return std::format("	SDL_Init(SDL_INIT_VIDEO);\n"
 				   "	TTF_Init();\n"
 		);
 	}
