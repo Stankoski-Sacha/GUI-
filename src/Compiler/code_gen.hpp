@@ -1,6 +1,5 @@
 #pragma once 
 
-#include <cwchar>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -84,8 +83,8 @@ private:
 	}
 
 	// Add the class button to the code before main 
-	std::string addButtonCode() {
-		std::ifstream file(std::string(PROJECT_SOURCE_DIR) + "/src/GUI_Componants/Button.hpp");
+	std::string addClassCode(std::string filepath) {
+		std::ifstream file(filepath);
 		
 
 		std::string button_code;
@@ -98,29 +97,6 @@ private:
 		return button_code;
 	}
 	
-	std::string addTextBoxCode() {
-		std::ifstream file(std::string(PROJECT_SOURCE_DIR) + "/src/GUI_Componants/TextBox.hpp");
-
-		std::string textboxCode, word;
-
-		while (std::getline(file, word)) {
-			textboxCode += word + '\n';
-		}
-
-		return textboxCode;
-	}
-
-	std::string addCheckBoxCode() {
-		std::ifstream file(std::string(PROJECT_SOURCE_DIR) + "/src/GUI_Componants/CheckBox.hpp");
-
-		std::string code, word;
-
-		while (std::getline(file, word)) {
-			code += word + '\n';
-		}
-
-		return code;
-	}
 
 	std::string makeButtonInitCode(int buttonID) {
 		return std::format("Button button{} = Button({}, {}, {}, {}, \"{}\", font);\n",
@@ -143,12 +119,8 @@ private:
 		);
 	}
 
-	std::string makeButtonRenderCode(int buttonID) {
-		return std::format("button{}.render(ren);\n", buttonID);
-	}
-
-	std::string makeCheckBoxRenderCode(int checkBoxID) {
-		return std::format("check{}.render(ren);\n", checkBoxID);
+	std::string renderCode(std::string toRender) {
+		return std::format("{}.render(ren);\n", toRender);
 	}
 
 	std::string embedFontCode() {
@@ -185,17 +157,23 @@ public:
 
 		// Check for any componant 
 		if (not componants.buttonsCreated.empty()) {
-			code += addButtonCode();
+			code += addClassCode(
+			std::string(PROJECT_SOURCE_DIR) + "/src/GUI_Componants/Button.hpp"
+			);
 			buttons = componants.buttonsCreated.size() - 1;
 		}
 
 		if (not componants.TextBoxCreated.empty()) {
-			code += addTextBoxCode();
+			code += addClassCode(
+			std::string(PROJECT_SOURCE_DIR) + "/src/GUI_Componants/TextBox.hpp"
+			);
 			textboxes = componants.TextBoxCreated.size() - 1;
 		}
 
 		if (not componants.CheckBoxCreated.empty()) {
-			code += addCheckBoxCode();
+			code += addClassCode(
+			std::string(PROJECT_SOURCE_DIR) + "/src/GUI_Componants/CheckBox.hpp"
+			);
 			checkbox = componants.CheckBoxCreated.size() - 1;
 		}
 
@@ -235,12 +213,13 @@ public:
 		// Add code for render button etc not now 
 		bTemp = buttons, checkTemp = checkbox;
 		while (bTemp >= 0) {
-			code += makeButtonRenderCode(bTemp);
+			code += renderCode(std::format("button{}", bTemp));
 			bTemp--;
 		}
 
 		while (checkTemp >= 0) {
-			code += makeCheckBoxRenderCode(checkTemp);
+			code += renderCode(std::format("check{}", checkTemp));
+
 			checkTemp--;
 		}
 
