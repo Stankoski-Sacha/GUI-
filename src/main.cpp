@@ -33,6 +33,7 @@ int main(int argc, char** argv) {
 
   optional<string> filename = nullopt;
   optional<string> outputname = nullopt;
+  bool useClang = false;
   bool output_token_exists = false;
   bool keepTempFile = false;
 
@@ -44,6 +45,7 @@ int main(int argc, char** argv) {
     auto output_token = string(argv[i]).find("-o");
     auto keepTempFileIt = string(argv[i]).find("-keep-temp");
     auto showHelpIt = string(argv[i]).find("--help");
+    auto useClangIt = string(argv[i]).find("-clang++");
 
     if (searchfile != string::npos) {
       filename = argv[i];
@@ -56,6 +58,9 @@ int main(int argc, char** argv) {
     }
     if (showHelpIt !=  string::npos) {
 	    showHelp();
+    }
+    if (useClangIt != string::npos) {
+	    useClang = true;
     }
     if (string(argv[i]).find(".gui") == string::npos && string(argv[i]) != "-o" 
 	&& outputname == nullopt && output_token_exists) {
@@ -105,8 +110,14 @@ int main(int argc, char** argv) {
   file.close();
 
   // Make the command
-  string command = format("g++ {} -o {} -lSDL2 -lSDL2_ttf", file_name, outputname.value_or("a.out"));
-  
+  string command;
+
+  if (useClang) { 
+	  command = format("clang++ {} -o {} -lSDL2 -lSDL2_ttf", file_name, outputname.value_or("a.out"));
+  }
+
+  command = format("g++ {} -o {} -lSDL2 -lSDL2_ttf", file_name, outputname.value_or("a.out"));
+
   // Execute the command to compile 
   system(command.c_str());
 
