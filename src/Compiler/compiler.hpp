@@ -1,19 +1,15 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include <iostream>
 #include <iterator>
 #include <string>
 #include <vector>
-#include <optional>
 #include <algorithm>
-#include <any>
 #include <utility>
 #include <cctype>
 
 // Includes 
 #include "lexer.hpp"
-#include "parser.hpp"
 
 namespace Compiler {
 
@@ -21,7 +17,8 @@ enum class Context {
 	WINDOW,
 	TEXTBOX,
 	BUTTON,
-	CHECKBOX
+	CHECKBOX,
+	SLIDER
 };
 
 struct WindowNode {
@@ -52,6 +49,11 @@ struct CheckBox {
 	CheckBox() = default;
 };
 
+struct Slider {
+	int x, y, w, h, minVal, maxVal;
+	Slider() = default;
+};
+
 
 // All componants inside of a struct to make it easier to move around
 struct ComponentNode {
@@ -59,6 +61,7 @@ struct ComponentNode {
 	std::vector<Button> buttonsCreated;
 	std::vector<TextBox> TextBoxCreated;
 	std::vector<CheckBox> CheckBoxCreated;
+	std::vector<Slider> sliderCreated;
 };
 
 
@@ -95,16 +98,26 @@ private:
 		for (auto i{0}; i < toks.size(); i++) {
 			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
 				dimensionsPair = returnVals(std::vector<Token>{
-					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
-						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+					toks.begin() + i, std::find_if(
+					toks.begin() + i, toks.end(), 
+					[](const Token& tok) { 
+							return tok.type == TokenType::SEMICOLON; 
+						}
+				)});	
+
 				do {
 				       i++;
 				} while (toks[i].type != TokenType::SEMICOLON);	       
 			}
 			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
 				positionPair = returnVals(std::vector<Token>{
-					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
-						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+					toks.begin() + i, std::find_if(
+					toks.begin() + i, toks.end(), 
+					[](const Token& tok) { 
+							return tok.type == TokenType::SEMICOLON; 
+							}
+				)});	
+
 				do {
 				       i++;
 				} while (toks[i].type != TokenType::SEMICOLON);	       
@@ -142,16 +155,26 @@ private:
 		for (auto i{0}; i < toks.size(); i++) {
 			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
 				dimensionsPair = returnVals(std::vector<Token>{
-					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
-						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+					toks.begin() + i, std::find_if(
+					toks.begin() + i, toks.end(), 
+					[](const Token& tok) { 
+							return tok.type == TokenType::SEMICOLON; 
+						}
+				)});
+
 				do {
 				       i++;
 				} while (toks[i].type != TokenType::SEMICOLON);	       
 			}
 			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
 				positionPair = returnVals(std::vector<Token>{
-					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
-						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+					toks.begin() + i, std::find_if(
+					toks.begin() + i, toks.end(), 
+					[](const Token& tok) { 
+							return tok.type == TokenType::SEMICOLON; 
+						}
+				)});	
+
 				do {
 				       i++;
 				} while (toks[i].type != TokenType::SEMICOLON);	       
@@ -192,16 +215,26 @@ private:
 		for (auto i{0}; i < toks.size(); i++) {
 			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
 				dimensionsPair = returnVals(std::vector<Token>{
-					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
-						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+					toks.begin() + i, std::find_if(
+					toks.begin() + i, toks.end(), 
+					[](const Token& tok) { 
+							return tok.type == TokenType::SEMICOLON; 
+						}
+				)});	
+					
 				do {
 				       i++;
 				} while (toks[i].type != TokenType::SEMICOLON);	       
 			}
 			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
 				positionPair = returnVals(std::vector<Token>{
-					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
-						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+					toks.begin() + i, std::find_if(
+					toks.begin() + i, toks.end(), 
+					[](const Token& tok) {
+							return tok.type == TokenType::SEMICOLON; 
+						}
+				)});
+					
 				do {
 				       i++;
 				} while (toks[i].type != TokenType::SEMICOLON);	       
@@ -238,16 +271,26 @@ private:
 		for (auto i{0}; i < toks.size(); i++) {
 			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
 				dimensionsPair = returnVals(std::vector<Token>{
-					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
-						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+					toks.begin() + i, std::find_if(
+					toks.begin() + i, toks.end(), 
+					[](const Token& tok) { 
+							return tok.type == TokenType::SEMICOLON; 
+						}
+				)});
+		
 				do {
 				       i++;
 				} while (toks[i].type != TokenType::SEMICOLON);	       
 			}
 			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
 				positionPair = returnVals(std::vector<Token>{
-					toks.begin() + i, std::find_if(toks.begin() + i, toks.end(), 
-						[](const Token& tok) { return tok.type == TokenType::SEMICOLON; })});	
+					toks.begin() + i, std::find_if(
+						toks.begin() + i, toks.end(), 
+						[](const Token& tok) { 
+							return tok.type == TokenType::SEMICOLON; 
+							}
+				)});
+
 				do {
 				       i++;
 				} while (toks[i].type != TokenType::SEMICOLON);	       
@@ -260,8 +303,66 @@ private:
 		node.y = positionPair.second;
 
 		return node;
-
 	}
+
+	Slider makeSlider(const std::vector<Lexer::Token>& toks) {
+		using namespace Lexer;
+		Slider node;
+
+		std::pair<int, int> dimensionsPair;
+		std::pair<int, int> positionPair;
+		std::pair<int, int> minMaxPair;
+
+		for (auto i{0}; i < toks.size(); i++) {
+			if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "dimensions") {
+				dimensionsPair = returnVals(std::vector<Token>{
+					toks.begin() + i, std::find_if(
+						toks.begin() + i, toks.end(), 
+						[](const Token& tok) { 
+								return tok.type == TokenType::SEMICOLON; 	
+							}
+				)});	
+				do {
+				       i++;
+				} while (toks[i].type != TokenType::SEMICOLON);	       
+			}
+			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "position") {
+				positionPair = returnVals(std::vector<Token>{
+					toks.begin() + i, std::find_if(
+						toks.begin() + i, toks.end(), 
+						[](const Token& tok) { 
+							return tok.type == TokenType::SEMICOLON; 
+						}
+				)});
+
+				do {
+				       i++;
+				} while (toks[i].type != TokenType::SEMICOLON);	       
+			}
+			else if (toks[i].type == TokenType::IDENTIFIER && toks[i].lexeme == "range") {
+				minMaxPair = returnVals(std::vector<Token> {
+					toks.begin() + i, std::find_if(
+						toks.begin() + i, toks.end(), 
+						[] (const Token& tok) {
+							return tok.type == TokenType::SEMICOLON;
+						}
+				)});
+						
+	
+			}
+			
+		}
+
+		node.w = dimensionsPair.first;
+		node.h = dimensionsPair.second;
+		node.x = positionPair.first;
+		node.y = positionPair.second;
+		node.minVal = minMaxPair.first;
+		node.maxVal = minMaxPair.second;
+
+		return node;
+	}
+
 
 
 
@@ -277,16 +378,16 @@ public:
 			case Lexer::TokenType::IDENTIFIER:		
 				if (toks[i].lexeme == "Window") {
 					context = Context::WINDOW; 
-				}
-				if (toks[i].lexeme == "Button") {
+				} else if (toks[i].lexeme == "Button") {
 					context = Context::BUTTON;
-				}
-				if (toks[i].lexeme == "TextBox") {
+				} else if (toks[i].lexeme == "TextBox") {
 					context = Context::TEXTBOX;
-				}
-				if (toks[i].lexeme == "CheckBox") {
+				} else if (toks[i].lexeme == "CheckBox") {
 					context = Context::CHECKBOX;
+				} else if (toks[i].lexeme == "Slider") {
+					context = Context::SLIDER;
 				}
+
 				if (toks[i].lexeme == "data") {
 					auto brace_begin = std::find_if(
 						toks.begin() + i, toks.end(),
@@ -314,6 +415,9 @@ public:
 							break;
 						case Context::CHECKBOX:
 							node.CheckBoxCreated.emplace_back(makeCheckBox(subvec));
+							break;
+						case Context::SLIDER:
+							node.sliderCreated.emplace_back(makeSlider(subvec));
 							break;
 
 					}

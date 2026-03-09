@@ -1,10 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <SDL_keyboard.h>
-#include <SDL_render.h>
-#include <SDL_surface.h>
-#include <optional>
-#include <iostream>
+#include <string>
 
 class TextBox {
 private:

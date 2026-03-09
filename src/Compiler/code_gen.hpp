@@ -119,6 +119,18 @@ private:
 		);
 	}
 
+	std::string makeSliderInitCode(int sliderID) {
+		return std::format("Slider slider{} = Slider({}, {}, {}, {}, font, {}, {});\n",
+				sliderID,
+				componants.sliderCreated[sliderID].x,
+				componants.sliderCreated[sliderID].y, 
+				componants.sliderCreated[sliderID].w,
+				componants.sliderCreated[sliderID].h,
+				componants.sliderCreated[sliderID].minVal,
+				componants.sliderCreated[sliderID].maxVal
+		);
+	}
+
 	std::string renderCode(std::string toRender) {
 		return std::format("{}.render(ren);\n", toRender);
 	}
@@ -153,7 +165,7 @@ public:
 	std::string make_final_code() {
 		std::string code = "";
 		code += headerCode();
-		int buttons = -1, textboxes = -1, checkbox = -1;
+		int buttons = -1, textboxes = -1, checkbox = -1, slider = -1;
 
 		// Check for any componant 
 		if (not componants.buttonsCreated.empty()) {
@@ -177,6 +189,13 @@ public:
 			checkbox = componants.CheckBoxCreated.size() - 1;
 		}
 
+		if (not componants.sliderCreated.empty()) {
+			code += addClassCode(
+				std::string(PROJECT_SOURCE_DIR) + "/src/GUI_Componants/Slider.hpp"
+			);
+			slider = componants.sliderCreated.size() - 1;
+		}
+
 		// Start of the code 
 		code += mainFunctionEntry();
 		code += initCode();
@@ -186,6 +205,7 @@ public:
 		// GUI Comp init here 
 		int bTemp = buttons;
 		int checkTemp = checkbox;
+		int sliderTemp = slider;
 		while (bTemp >= 0) {
 			code += makeButtonInitCode(bTemp);
 			bTemp--;
@@ -194,6 +214,11 @@ public:
 		while (checkTemp >= 0) {
 			code += makeCheckBoxInitCode(checkTemp);
 			checkTemp--;
+		}
+
+		while (sliderTemp >= 0) {
+			code += makeSliderInitCode(sliderTemp);
+			sliderTemp--;
 		}
 
 		// End of that
@@ -211,7 +236,7 @@ public:
 		code += renderLoopCodePart2();
 
 		// Add code for render button etc not now 
-		bTemp = buttons, checkTemp = checkbox;
+		bTemp = buttons, checkTemp = checkbox, sliderTemp = slider;
 		while (bTemp >= 0) {
 			code += renderCode(std::format("button{}", bTemp));
 			bTemp--;
@@ -221,6 +246,11 @@ public:
 			code += renderCode(std::format("check{}", checkTemp));
 
 			checkTemp--;
+		}
+
+		while (sliderTemp >= 0) {
+			code += renderCode(std::format("slider{}", sliderTemp));
+			sliderTemp--;
 		}
 
 		// End of render
