@@ -82,7 +82,7 @@ int main(int argc, char** argv) {
 
   // std::exit(0); // for debug the lexer 
 
-  // Parser::Parser parser = Parser::Parser(lexer_tok);
+  Parser::Parser parser = Parser::Parser(lexer_tok);
 
   Compiler::compiler comp{lexer_tok};
   

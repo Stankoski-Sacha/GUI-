@@ -404,21 +404,21 @@ public:
 					std::vector<Lexer::Token> subvec(toks.begin() + i + 1, data_end);	
 
 					switch (context) {
-						case Context::WINDOW:
-							node.win = makeWindow(subvec);
-							break;
-						case Context::BUTTON:
-							node.buttonsCreated.emplace_back(makeButton(subvec));
-							break;
-						case Context::TEXTBOX:
-							node.TextBoxCreated.emplace_back(makeTextBox(subvec));
-							break;
-						case Context::CHECKBOX:
-							node.CheckBoxCreated.emplace_back(makeCheckBox(subvec));
-							break;
-						case Context::SLIDER:
-							node.sliderCreated.emplace_back(makeSlider(subvec));
-							break;
+					case Context::WINDOW:
+						node.win = makeWindow(subvec);
+						break;
+					case Context::BUTTON:
+						node.buttonsCreated.emplace_back(makeButton(subvec));
+						break;
+					case Context::TEXTBOX:
+						node.TextBoxCreated.emplace_back(makeTextBox(subvec));
+						break;
+					case Context::CHECKBOX:
+						node.CheckBoxCreated.emplace_back(makeCheckBox(subvec));
+						break;
+					case Context::SLIDER:
+						node.sliderCreated.emplace_back(makeSlider(subvec));
+						break;
 
 					}
 					i = std::distance(toks.begin() + 1, data_end);

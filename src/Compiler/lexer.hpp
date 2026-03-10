@@ -3,8 +3,6 @@
 #include <cctype>
 #include <fstream>
 #include <iostream>
-#include <optional>
-#include <sstream>
 #include <vector>
 
 // Types of tokens

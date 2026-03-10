@@ -4,7 +4,6 @@
  * The hard part :( 
  */
 
-#include <iostream>
 #include <string>
 #include <vector>
 #include <memory>
