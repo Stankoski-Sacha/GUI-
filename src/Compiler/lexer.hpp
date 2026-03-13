@@ -29,33 +29,10 @@ enum class TokenType {
   WTF,
 };
 
-// Debugging purpose 	
-constexpr std::string_view TokenToString(const TokenType& t) {
-	switch (t) {
-		case TokenType::IDENTIFIER: return "Identifier -> ";
-		case TokenType::INT_LITERAL: return "Integer -> ";
-		case TokenType::STRING_LITERAL: return "String -> ";
-		case TokenType::LEFT_BRACE: return "Left Curly Brace -> ";
-		case TokenType::RIGHT_BRACE: return "Right Curly Brace -> ";
-		case TokenType::COLON: return "Colon -> ";
-		case TokenType::SEMICOLON: return "Semicolon -> ";
-		case TokenType::COMMA: return "Comma -> ";
-		case TokenType::DOT: return "Dot -> ";
-		case TokenType::EndOfFile: return "EOF -> ";
-		case TokenType::WTF: return "Huh?";
-		case TokenType::BOOL_LITERAL: return "Bool -> ";
-		default: return "Error somewhere dawg";
-	}
-}
-
 struct Token {
   TokenType type;
   std::string lexeme;
   int line;
-
-  friend std::ostream& operator<<(std::ostream& os, const Token t) {
-    return os << "Line " << t.line << ' ' << TokenToString(t.type) << t.lexeme << '\n';
-  }
 };
 
 class Lexer {

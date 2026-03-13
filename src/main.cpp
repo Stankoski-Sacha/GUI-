@@ -83,7 +83,10 @@ int main(int argc, char** argv) {
   // std::exit(0); // for debug the lexer 
 
   Parser::Parser parser = Parser::Parser(lexer_tok);
+  parser.mainParserLoop();
 
+
+  std::exit(0);
   Compiler::compiler comp{lexer_tok};
   
   auto comp_tok = comp.makeNode();

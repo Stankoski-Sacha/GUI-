@@ -1,0 +1,7 @@
+Window {
+	.data {
+		dimensions: 600,600;
+		position: 200,200;
+		title: "GUI++";
+	}
+}
